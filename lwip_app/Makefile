@@ -15,12 +15,23 @@ LDFLAGS ?= -lpthread -lrt
 #'-I' Adds to list of directories to search for dependencies
 INCLUDES= -I $(LWIPDIR)/include
 INCLUDES += -I $(LWIPDIR)/../contrib/ports/unix/port/include
+INCLUDES += -I $(LWIPDIR)/../contrib/examples
 INCLUDES += -I $(THIS_MK_DIR)
 
 $(info INCLUDES: $(INCLUDES))
 
+SOURCE = 	$(COREFILES) \
+			$(CORE4FILES) \
+			$(CORE6FILES) \
+			$(APIFILES) \
+			$(PPPFILES) \
+			$(LWIPDIR)/netif/ethernet.c \
+			$(LWIPDIR)/../contrib/ports/unix/port/sys_arch.c \
+			$(LWIPDIR)/../contrib/ports/unix/port/netif/sio.c \
+			$(LWIPDIR)/../contrib/ports/unix/example_app/default_netif.c
 
-lwip_app: testlwip.c $(COREFILES) $(CORE4FILES) $(CORE6FILES) $(APIFILES) $(PPPFILES) $(LWIPDIR)/netif/ethernet.c sysarch.c $(LWIPDIR)/../contrib/ports/unix/port/netif/sio.c
+
+lwip_app: testlwip.c $(SOURCE)
 	@echo "Using compiler: $(CC)"
 	$(CC) $(CFLAGS) $^ -o $@ $(INCLUDES) $(LDFLAGS)
 
