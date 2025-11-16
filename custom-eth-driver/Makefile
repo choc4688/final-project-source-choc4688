@@ -13,8 +13,8 @@ EXTRA_CFLAGS += $(DEBFLAGS)
 
 ifneq ($(KERNELRELEASE),)
 # call from kernel build system
-obj-m	:= ethdriver.o
-ethdriver-y := main.o
+obj-m	:= final-driver.o
+final-driver-y := main.o
 else
 
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
