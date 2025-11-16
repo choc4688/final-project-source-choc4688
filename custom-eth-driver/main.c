@@ -34,7 +34,7 @@
 #include <linux/skbuff.h>
 #include <linux/version.h> 	/* LINUX_VERSION_CODE  */
 
-#include "snull.h"
+#include "ethdriver.h"
 
 #include <linux/in6.h>
 #include <asm/checksum.h>
