@@ -214,8 +214,16 @@ int snull_open(struct net_device *dev)
 	 * address (the first byte of multicast addrs is odd).
 	 */
 	memcpy(dev->dev_addr, "\0SNUL0", ETH_ALEN);
-	if (dev == snull_devs[1])
-		dev->dev_addr[ETH_ALEN-1]++; /* \0SNUL1 */
+	if (dev == snull_devs[1]) {
+
+        //*****************Kernel Changes causing errors from old snull code*************** */
+        unsigned char addr[ETH_ALEN];
+        memcpy(addr, dev->dev_addr, ETH_ALEN);
+        addr[ETH_ALEN - 1]++;
+        eth_hw_addr_set(dev, addr);
+
+
+    }
 	if (use_napi) {
 		struct snull_priv *priv = netdev_priv(dev);
 		napi_enable(&priv->napi);
@@ -712,7 +720,10 @@ void snull_init(struct net_device *dev)
 	priv = netdev_priv(dev);
 	memset(priv, 0, sizeof(struct snull_priv));
 	if (use_napi) {
-		netif_napi_add(dev, &priv->napi, snull_poll,2);
+		// netif_napi_add(dev, &priv->napi, snull_poll,2);
+        netif_napi_add(dev, &priv->napi, snull_poll);
+        priv->napi.weight = 2; //******************************************
+
 	}
 	spin_lock_init(&priv->lock);
 	priv->dev = dev;
