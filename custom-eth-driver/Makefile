@@ -14,7 +14,7 @@ EXTRA_CFLAGS += $(DEBFLAGS)
 ifneq ($(KERNELRELEASE),)
 # call from kernel build system
 obj-m	:= ethdriver.o
-aesdchar-y := main.o
+ethdriver-y := main.o
 else
 
 KERNELDIR ?= /lib/modules/$(shell uname -r)/build
