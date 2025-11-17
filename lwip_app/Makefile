@@ -1,7 +1,7 @@
 #The same on development VM and target RasPi FS
 THIS_MK_DIR := $(shell pwd)
 
-LWIPDIR=/usr/lib/lwip/src
+# LWIPDIR=/usr/lib/lwip/src
 include $(LWIPDIR)/Filelists.mk
 
 #Need to link lwIP files here
@@ -13,10 +13,10 @@ CFLAGS ?= -g
 LDFLAGS ?= -lpthread -lrt
 
 #'-I' Adds to list of directories to search for dependencies
-INCLUDES= -I $(LWIPDIR)/include
-INCLUDES += -I $(LWIPDIR)/../contrib/ports/unix/port/include
-INCLUDES += -I $(LWIPDIR)/../contrib/examples
-INCLUDES += -I $(LWIPDIR)/../contrib
+INCLUDES= -I $(STAGING_DIR)/include
+INCLUDES += -I $(STAGING_DIR)/../contrib/ports/unix/port/include
+INCLUDES += -I $(STAGING_DIR)/../contrib/examples
+INCLUDES += -I $(STAGING_DIR)/../contrib
 INCLUDES += -I $(THIS_MK_DIR)
 
 $(info INCLUDES: $(INCLUDES))
@@ -26,9 +26,9 @@ SOURCE = 	$(COREFILES) \
 			$(CORE6FILES) \
 			$(APIFILES) \
 			$(PPPFILES) \
-			$(LWIPDIR)/netif/ethernet.c \
-			$(LWIPDIR)/../contrib/ports/unix/port/sys_arch.c \
-			$(LWIPDIR)/../contrib/ports/unix/port/netif/sio.c 
+			$(STAGING_DIR)/netif/ethernet.c \
+			$(STAGING_DIR)/../contrib/ports/unix/port/sys_arch.c \
+			$(STAGING_DIR)/../contrib/ports/unix/port/netif/sio.c 
 
 
 #$(LWIPDIR)/../contrib/ports/unix/example_app/default_netif.c
