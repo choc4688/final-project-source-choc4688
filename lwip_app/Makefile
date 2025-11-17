@@ -16,6 +16,7 @@ LDFLAGS ?= -lpthread -lrt
 INCLUDES= -I $(LWIPDIR)/include
 INCLUDES += -I $(LWIPDIR)/../contrib/ports/unix/port/include
 INCLUDES += -I $(LWIPDIR)/../contrib/examples
+INCLUDES += -I $(LWIPDIR)/../contrib
 INCLUDES += -I $(THIS_MK_DIR)
 
 $(info INCLUDES: $(INCLUDES))
@@ -27,8 +28,10 @@ SOURCE = 	$(COREFILES) \
 			$(PPPFILES) \
 			$(LWIPDIR)/netif/ethernet.c \
 			$(LWIPDIR)/../contrib/ports/unix/port/sys_arch.c \
-			$(LWIPDIR)/../contrib/ports/unix/port/netif/sio.c \
-			$(LWIPDIR)/../contrib/ports/unix/example_app/default_netif.c
+			$(LWIPDIR)/../contrib/ports/unix/port/netif/sio.c 
+
+
+#$(LWIPDIR)/../contrib/ports/unix/example_app/default_netif.c
 
 
 lwip_app: testlwip.c $(SOURCE)
