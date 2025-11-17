@@ -2,7 +2,7 @@
 THIS_MK_DIR := $(shell pwd)
 
 # LWIPDIR=/usr/lib/lwip/src
-include $(LWIPDIR)/Filelists.mk
+include $(STAGING_DIR)/Filelists.mk
 
 #Need to link lwIP files here
 #Have a check for Ubuntu dev vs RasPi, change path to lwIP depending on platform
