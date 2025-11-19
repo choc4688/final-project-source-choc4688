@@ -17,7 +17,7 @@ INCLUDES= -I $(STAGING_DIR)$(LWIPDIR)/include
 INCLUDES += -I $(STAGING_DIR)$(LWIPDIR)/../contrib/ports/unix/port/include
 INCLUDES += -I $(STAGING_DIR)$(LWIPDIR)/../contrib/examples
 INCLUDES += -I $(STAGING_DIR)$(LWIPDIR)/../contrib
-INCLUDES += -I $(THIS_MK_DIR)$(LWIPDIR)
+INCLUDES += -I $(THIS_MK_DIR)
 
 $(info INCLUDES: $(INCLUDES))
 
