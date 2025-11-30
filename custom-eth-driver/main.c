@@ -18,8 +18,6 @@ int  xdp_prog_simple(struct xdp_md *ctx)
 	// return XDP_PASS;
 
 
-    
-
     //Redirect incoming packets to an AF_XDP socket instead of passing up the linux network stack
 
     //'xsks_map' = BPF map holding userspace AF_XDP sockets

@@ -34,7 +34,7 @@ SOURCE = 	$(COREFILES) \
 #$(LWIPDIR)/../contrib/ports/unix/example_app/default_netif.c
 
 
-lwip_app: testlwip.c $(SOURCE)
+lwip_app: testlwip.c linux_netif.c $(SOURCE)
 	@echo "Using compiler: $(CC)"
 	$(CC) $(CFLAGS) $^ -o $@ $(INCLUDES) $(LDFLAGS)
 
