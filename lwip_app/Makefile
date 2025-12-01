@@ -33,13 +33,13 @@ SOURCE = 	$(COREFILES) \
 
 #$(LWIPDIR)/../contrib/ports/unix/example_app/default_netif.c
 
+udpecho: udpecho.c 
+	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 lwip_app: testlwip.c linux_netif.c $(SOURCE)
 	@echo "Using compiler: $(CC)"
 	$(CC) $(CFLAGS) $^ -o $@ $(INCLUDES) $(LDFLAGS)
 
-udpecho: udpecho.c 
-	$(CC) $(CFLAGS) $^ -o $@ $(LDFLAGS)
 
 clean:
 	rm -f testlwip testlwip.o
