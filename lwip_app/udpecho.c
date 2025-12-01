@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
         perror("Failed recvfrom()");
     }
 
-    printf("Received packet: %s\n", pbuff)
+    // printf("Received packet: %s\n", pbuff);
 
 
     ssize_t status = sendto(sockfd, pbuff, numRecvBytes, 0, (struct sockaddr*) &client_addr, addr_size);
