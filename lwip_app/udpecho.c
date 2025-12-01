@@ -1,4 +1,6 @@
 
+//Note: Referencing my code for aesdsocket.c used in previous AESD assignments as a basis for this implementation.
+
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netdb.h>
@@ -48,7 +50,7 @@ int main(int argc, char *argv[]) {
     //Setup for getaddrinfo()
     memset(&hints, 0, sizeof(hints)); //Ensures struct is empty
     hints.ai_flags = AI_PASSIVE;
-    hints.ai_socktype = SOCK_DGRAM; //SOCK_STREAM = TCP, SOCK_DGRAM = UDP*****************
+    hints.ai_socktype = SOCK_DGRAM; //SOCK_STREAM = TCP, SOCK_DGRAM = UDP
     hints.ai_family = AF_UNSPEC; 
 
     //NULL for first param sets identity to the program name.
@@ -71,25 +73,11 @@ int main(int argc, char *argv[]) {
          return -1;
     }
 
-    // //Now listen for connections on the socket
-    // status = listen(sockfd, 10); 
-    // if (status == -1) {
-    //      perror("Failed to listen\n");
-    //      syslog(LOG_ERR, "Failed listen()\n");
-    // }
-
-    //Everything above is standard, now below is the actual handling of packets
-
-
-    //--------------------------------------------------
 
     while(1) {
 
-         size_t totalLen = 0;
+    size_t totalLen = 0;
     ssize_t numRecvBytes;
-    
-    //Additional setup part of the main loop in aesdsocket: ********************
-
 
         char* pbuff = malloc(MAX_PACKET_SIZE); //For incoming packets
         if (!pbuff) {
@@ -98,26 +86,9 @@ int main(int argc, char *argv[]) {
             continue; //Try again on the next loop iteration in case the error is recoverable / temporary (Was suggested by Copilot AI for safe memory handling tips)
         }
 
-        // char* outpbuff = malloc(MAX_PACKET_SIZE); //For outgoing packets
-        // if (!outpbuff) {
-        //     perror("Failed to malloc outpbuff\n"); 
-        //     syslog(LOG_ERR, "Failed outpbuff malloc\n");
-        //     continue;
-        // }
-
         //The 2 lines below are AI generated. Was needed to fix my section of code trying to get the IP address.
         struct sockaddr_storage client_addr; 
         socklen_t addr_size = sizeof(client_addr);
-
-        // int connfd = accept(sockfd, (struct sockaddr *)&client_addr, &addr_size);
-        // if (connfd == -1) {
-        //     perror("Failed to accept\n");
-        //     syslog(LOG_ERR, "Failed accept()\n");
-        //     // freeaddrinfo(servinfo);
-        //     free(pbuff);
-        //     free(outpbuff);
-        //     return -1;
-        // }
 
         //Log connection + get IP addr
         //Reference: https://stackoverflow.com/questions/3060950/how-to-get-ip-address-from-sock-structure-in-c
@@ -133,12 +104,6 @@ int main(int argc, char *argv[]) {
         syslog(LOG_INFO, "Accepted connection from %s\n", ipv4str);
 
     //--------------------------------------------------------
-
-    //Actual packet handling
-
-
-    //Read a packet, then send it back out************************
-    //Not waiting for a '\n' character
 
 
     numRecvBytes = recvfrom(sockfd, pbuff, MAX_PACKET_SIZE, 0, (struct sockaddr*) &client_addr, &addr_size);
@@ -157,9 +122,7 @@ int main(int argc, char *argv[]) {
     }
 
     free(pbuff);
-    // free(outpbuff);
 
-        
     }
 
    
